@@ -17,6 +17,15 @@
   font-size: large;
 }
 
+.card-action:hover {
+  background-color: #f5f2dc;
+}
+
+.card-action a:hover {
+  color: chocolate !important;
+  text-decoration: none;
+}
+
 img {
   height: 250px;
 }
