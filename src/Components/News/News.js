@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import NewSingle from './NewSingle';
 
 class News extends Component {
@@ -6,28 +7,32 @@ constructor(props){
     super(props);
     this.state ={
       news: [],
+      error: false
     };
 }
 
   componentDidMount() {
-    const url = 'https://newsapi.org/v2/everything?q=apple&from=2018-08-22&to=2018-08-22&sortBy=popularity&apiKey=a87269f66e3046b88be33a9b8e80496b';
+    const url = 'https://api.myjson.com/bins/77dr8';
 
-    fetch(url)
+    axios.get(url)
       .then((response) => {
-          return response.json();
+        this.setState({
+          news: response.data.articles
+        })
       })
-      .then((data) => {
-          this.setState({
-              news: data.articles
-          })
-      })
-      .catch((error) => console.log(error));
+      .catch((error) => { // if there is error calling api then set the error to true
+        this.setState({
+          error: true
+        })
+      });
   }
 
-    renderItems(){
+    renderItems() {
+      if(!this.state.error) {
       return this.state.news.map((item) => (
-         <NewSingle key={item.url} item={item} />
+         <NewSingle item={item} />
       ));
+      } 
     }
 
     render(){
