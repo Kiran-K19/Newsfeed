@@ -29,3 +29,7 @@
 img {
   height: 250px;
 }
+
+.card-content {
+  min-height: 100px;
+}
